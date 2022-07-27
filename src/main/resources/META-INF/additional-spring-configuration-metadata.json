@@ -1,0 +1,23 @@
+{
+  "properties": [
+    {
+      "name": "database.jdbc.password",
+      "type": "java.lang.String",
+      "description": "Password phrase."
+    },
+    {
+      "name": "database.jdbc.username",
+      "type": "java.lang.String",
+      "description": "Description for database.jdbc.username."
+    },
+    {
+      "name": "database.jdbc.url",
+      "type": "java.lang.String",
+      "description": "Description for database.jdbc.url."
+    },
+    {
+      "name": "database.jdbc.driver",
+      "type": "java.lang.String",
+      "description": "Description for database.jdbc.driver."
+    }
+  ] }

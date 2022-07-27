@@ -1,0 +1,54 @@
+body {
+    font-family: "Segoe UI", Roboto, Helvetica, Arial, serif;
+    margin: 0;
+    padding: 0;
+}
+
+nav.nav_bar {
+    display: grid;
+    grid-auto-flow: column;
+    align-self: center;
+    position: relative;
+    height: 3rem;
+    width: 100%;
+    max-width: 100%;
+    align-items: center;
+    background-color: #bccad6;
+    transition-duration: 500ms;
+}
+
+
+div.nav_option {
+    display: block;
+    padding: 1px 2em 0 2em;
+    text-align: center;
+    transition-duration: 500ms;
+    height: 100%;
+    border: 1pt solid #cfd5e8;
+}
+
+div.nav_option:hover {
+    background-color: #8d9db6;
+    color: #474e5e;
+}
+
+div.nav_option:hover > a {
+    color: #474e5e;
+}
+
+div.nav_option > a {
+    display: block;
+    font-size: 16px;
+    width: 100%;
+    margin: 10px 0 0 0;
+    color: #8d9db6;
+    vertical-align: center;
+    text-decoration: none;
+    transition-duration: 500ms;
+}
+
+div.nav_option > a:hover {
+    color: #474e5e;
+    text-decoration: none;
+    transition-duration: 500ms;
+}

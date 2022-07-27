@@ -1,0 +1,26 @@
+body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+div.quiz_type_block {
+    margin: auto;
+    height: 350px;
+}
+
+div.question_set {
+    display: block;
+    margin: 2em 0 2em 0;
+}
+
+div.quiz_add_block {
+    display: block;
+    margin: auto;
+}
+
+textarea {
+    width: 500px;
+    height: 100px;
+}

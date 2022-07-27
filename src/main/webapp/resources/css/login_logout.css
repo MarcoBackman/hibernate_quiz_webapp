@@ -1,0 +1,79 @@
+body {
+    font-family: "Segoe UI", Roboto, Helvetica, Arial, serif;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+div#box_wrapper {
+    display: block;
+    position: absolute;
+    width: 40%;
+    height: 65%;
+    left: 30%;
+    top: 20%;
+    background-color: #f3f6fc;
+    border-radius: 16px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+h1#header {
+    text-align: center;
+    font-family: Helvetica, serif;
+    color: #474e5e;
+    font-weight: 700;
+}
+
+fieldset.input_field {
+    position: relative;
+    width: 90%;
+    height: 75%;
+    margin: auto;
+}
+
+legend {
+    text-align: center;
+    font-size: 18px;
+}
+
+div#input_section {
+    display:grid;
+    grid-gap:5px;
+    margin: 2em auto 0 auto;
+    width: 100%;
+}
+
+label {
+    display: block;
+    height: 26px;
+    width: 100%;
+    text-align:right;
+    font-weight: bold;
+    color: #474e5e;
+    margin: 5px 0 0 0;
+}
+
+label > input {
+    display: inline-flex;
+    text-align: center;
+    height: 26px;
+    width: 25%;
+    margin: 0 30% 0 0;
+}
+
+button {
+    position: relative;
+    width: 45%;
+    height: 40px;
+    margin: 2em 0 0 30%;
+    border-radius: 10px;
+    border: none;
+    font-weight: bold;
+    background-color: #bccce3;
+}
+
+button:hover {
+    background-color: #acc2e5;
+    cursor: pointer;
+}
