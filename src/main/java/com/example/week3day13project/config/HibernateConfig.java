@@ -20,8 +20,7 @@ public class HibernateConfig {
 
     DBProperty DBProperty;
 
-    @Autowired
-    public void setHibernateProperty(DBProperty DBProperty) {
+    HibernateConfig(DBProperty DBProperty) {
         this.DBProperty = DBProperty;
     }
 
