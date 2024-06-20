@@ -25,11 +25,8 @@ public class MainFilter extends OncePerRequestFilter {
         String requestURI = request.getRequestURI();
 
         //when user session is valid
-        if ((session == null
-                || session.getAttribute("userObject") == null)
-                && !requestURI.equals("/login")) {
-            //add when valid user enters wrong address
-            response.sendRedirect("/home");
+        if (session == null
+                || session.getAttribute("userObject") == null) {
             System.out.println("Invalid user session");
             // redirect back to the login page if user is not logged in
             response.sendRedirect("/login");
