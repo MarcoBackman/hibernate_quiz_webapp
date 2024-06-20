@@ -39,13 +39,13 @@ public class QuizTakeController {
 
     //Initial mapping
     @RequestMapping(value = "/take-quiz/{topic}", method = RequestMethod.GET)
-    public String setupQuizTopicPage(@PathVariable(value="topic") String topic) {
+    public String setupQuizTopicPage(@PathVariable(value="topic") String topicId) {
 
         //Get multiple question set
-        optionSetByQuestion = questionService.getTenMultipleQuestionsByType(Integer.parseInt(topic));
+        optionSetByQuestion = questionService.getTenMultipleQuestionsByType(Integer.parseInt(topicId));
 
         //Get two short questions
-        List<Question> shortQuestions = questionService.getTwoShortQuestionsByType(Integer.parseInt(topic));
+        List<Question> shortQuestions = questionService.getTwoShortQuestionsByType(Integer.parseInt(topicId));
 
         //append only when short question is present
         if (shortQuestions.size() > 0) {
@@ -83,7 +83,7 @@ public class QuizTakeController {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         startDateTime = sdf.format(date);
 
-        return "redirect:" + topic + "/1";
+        return "redirect:" + topicId + "/1";
     }
 
     @GetMapping(value = "/take-quiz/{topic}/{page}")

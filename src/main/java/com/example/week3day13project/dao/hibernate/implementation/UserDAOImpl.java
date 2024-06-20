@@ -1,14 +1,13 @@
 package com.example.week3day13project.dao.hibernate.implementation;
 
 import com.example.week3day13project.dao.hibernate.AbstractHibernateDAO;
-import com.example.week3day13project.dao.hibernate.FeedbackDAO;
 import com.example.week3day13project.dao.hibernate.UserDAO;
-import com.example.week3day13project.domain.hibernate.Feedback;
 import com.example.week3day13project.domain.hibernate.User;
+import com.example.week3day13project.security.PasswordHandler;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import reactor.util.annotation.Nullable;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -25,7 +24,6 @@ public class UserDAOImpl extends AbstractHibernateDAO<User> implements UserDAO {
     CriteriaQuery<User> userCR;
     Root<User> userRoot;
 
-    @Autowired
     public UserDAOImpl() {
         setClazz(User.class);
     }
@@ -90,26 +88,32 @@ public class UserDAOImpl extends AbstractHibernateDAO<User> implements UserDAO {
         }
     }
 
+    @Nullable
     @Override
     public User validateLogin(String userName, String password) {
         initializeUserSession();
 
-        userCR.select(userRoot);
-        Predicate userNameMatch
-                = cb.equal(userRoot.get("userName"), userName);
+        Predicate userNameMatch = cb.equal(userRoot.get("userName"), userName);
+        userCR.where(userNameMatch);
 
-        Predicate userPWMatch
-                = cb.equal(userRoot.get("userPW"), password);
-
-        Predicate finalPredicate
-                = cb.and(userNameMatch, userPWMatch);
-
-        userCR.where(finalPredicate);
-
-
+        //Lookup hash and salt value by userId
         Query<User> query = session.createQuery(userCR);
-        Optional<User> result = query.getResultList().stream().findAny();
-        return result.orElse(null);
+        Optional<User> result = query.getResultList().stream().findFirst();
+
+        if (result.isPresent()) {
+            User userData = result.get();
+            String saltValue = userData.getSalt();
+            String hashValue = userData.getUserPW();
+            boolean isValidUser = PasswordHandler.isValidUserPassword(password, hashValue, saltValue);
+            if (isValidUser) {
+                //System.out.println("Logged in");
+                return userData;
+            }
+        } else {
+            System.out.println("No user found");
+        }
+        //System.out.println("Failed");
+        return null;
     }
 
     @Override

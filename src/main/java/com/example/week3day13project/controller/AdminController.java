@@ -2,6 +2,7 @@ package com.example.week3day13project.controller;
 
 import com.example.week3day13project.domain.hibernate.*;
 import com.example.week3day13project.service.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,7 @@ import java.util.*;
 /**
  * @TODO: Credential check path is needed instead of checking credential on every mapper
  */
+@Slf4j
 @Controller
 public class AdminController {
 
@@ -44,24 +46,20 @@ public class AdminController {
         HttpSession currentSession = request.getSession(false);
         if (currentSession == null) { //Expired or no session
             return false;
-        } else if (currentSession.getAttribute("userObject") == null) {
-            return false;
-        }
-        return true;
+        } else return currentSession.getAttribute("userObject") != null;
     }
 
     private boolean isAdmin(HttpServletRequest request) {
         HttpSession currentSession = request.getSession(false);
         //identify user credential
         User user = (User) currentSession.getAttribute("userObject");
-        if (!user.isAdmin() || user.isSuspended()) {
-            return false;
-        }
-        return true;
+        return user.isAdmin() || !user.isSuspended();
     }
 
     @RequestMapping(value = "/admin-page")
     public String getAdminPage(HttpServletRequest request, Model model) {
+
+        //Non-admin approach
         if (!isActiveSession(request)) {
             return "loginPage";
         } else if (!isAdmin(request)) {
@@ -120,6 +118,8 @@ public class AdminController {
     public String viewDetail(HttpServletRequest request,
                              Model model,
                              @PathVariable(value="quiz_id") String quizID) {
+
+        //Non-admin approach
         if (!isActiveSession(request)) {
             return "loginPage";
         } else if (!isAdmin(request)) {
@@ -153,9 +153,10 @@ public class AdminController {
     }
 
     //filter
-    @PostMapping(value = "/admin-page/by-category")
+    @GetMapping(value = "/admin-page/by-category")
     public String getOnlyCategory(HttpServletRequest request,
                                   Model model) {
+        //Non-admin approach
         if (!isActiveSession(request)) {
             return "loginPage";
         } else if (!isAdmin(request)) {
@@ -245,9 +246,10 @@ public class AdminController {
     }
 
     //filter
-    @PostMapping(value = "/admin-page/by-user")
+    @GetMapping(value = "/admin-page/by-user")
     public String getUserQuizLog(HttpServletRequest request,
                                  Model model) {
+        //Non-admin approach
         if (!isActiveSession(request)) {
             return "loginPage";
         } else if (!isAdmin(request)) {
@@ -255,15 +257,16 @@ public class AdminController {
         }
 
         if (request.getParameterValues("user_id") == null) {
+            log.warn("User id not provided");
             return "redirect:/adminPage;";
         }
 
-        Optional<String> value
-                = Arrays.stream(request.getParameterValues("user_id")).findAny();
+        Optional<String> value = Arrays.stream(request.getParameterValues("user_id")).findAny();
         String userID = "";
         if (value.isPresent()) {
             userID = value.get();
         } else {
+            log.warn("User id={} not found", userID);
             return "redirect:/adminPage;";
         }
 

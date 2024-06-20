@@ -4,7 +4,6 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Set;
 
 @Entity
 @Table(name="User")
@@ -42,6 +41,9 @@ public class User implements Serializable {
 
     @Column(name = "last_name")
     private String lastName;
+
+    @Column(name = "salt_value")
+    private String salt;
 
     @Override
     public String toString() {

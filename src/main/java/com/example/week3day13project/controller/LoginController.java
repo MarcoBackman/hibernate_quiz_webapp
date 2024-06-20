@@ -1,11 +1,7 @@
 package com.example.week3day13project.controller;
 
-import com.example.week3day13project.Week3Day13ProjectApplication;
-import com.example.week3day13project.config.HibernateConfig;
 import com.example.week3day13project.domain.hibernate.User;
 import com.example.week3day13project.service.LoginService;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Optional;
 
 @Controller
 public class LoginController {
@@ -69,7 +64,7 @@ public class LoginController {
         User user = (User)oldSession.getAttribute("userObject");
 
         // invalidate old session if it exists
-        if(oldSession != null) oldSession.invalidate();
+        oldSession.invalidate();
         return "loginPage";
     }
 }

@@ -129,4 +129,9 @@ public class QuestionService {
         return hibernateQuestionOptionDAO.getOptionsByQuestionID(questionID);
     }
 
+    @Transactional
+    public int getAvailableQuizAmount(Integer quizType) {
+        return hibernateQuestionDAO.getQuizCountByType(quizType);
+    }
+
 }

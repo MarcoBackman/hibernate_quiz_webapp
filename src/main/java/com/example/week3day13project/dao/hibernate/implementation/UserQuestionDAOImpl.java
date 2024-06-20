@@ -5,7 +5,6 @@ import com.example.week3day13project.dao.hibernate.UserQuestionDAO;
 import com.example.week3day13project.domain.hibernate.UserQuestion;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -20,7 +19,6 @@ public class UserQuestionDAOImpl extends AbstractHibernateDAO<UserQuestion> impl
     CriteriaQuery<UserQuestion> userQuestionCR;
     Root<UserQuestion> userQuestionRoot;
 
-    @Autowired
     public UserQuestionDAOImpl() {
         setClazz(UserQuestion.class);
     }

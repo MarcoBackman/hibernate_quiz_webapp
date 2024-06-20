@@ -15,9 +15,9 @@
     <%@include file="navBar.jsp"%>
     <div>
         <h1>Contact us!</h1>
-        <p>Address: 50 Millstone Rd, Building 300. Suite 120, East Windsor, NJ 08520</p>
-        <p>Email: info@beaconfiresolution.com</p>
-        <p>Phone: 609-608-0477</p>
+        <p>Address: Demo address</p>
+        <p>Email: info@demo.com</p>
+        <p>Phone: ###-###-####</p>
     </div>
     <form action="contact">
 

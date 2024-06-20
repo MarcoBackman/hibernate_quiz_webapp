@@ -1,5 +1,6 @@
 package com.example.week3day13project.controller;
 
+import com.example.week3day13project.security.PasswordHandler;
 import com.example.week3day13project.service.RegisterService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +11,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class RegisterController {
+
+    private static final int SALT_LENGTH = 20;
 
     private static RegisterService registerService;
 
@@ -38,7 +41,13 @@ public class RegisterController {
             model.addAttribute("message", "User name already taken use different name");
             return "register";
         } else { //register
-            registerService.registerUser(userName, userPW, userEmail, userFirstName, userLastName);
+
+            String generatedSalt = PasswordHandler.getSalt(SALT_LENGTH);
+            //Hash password with salt value
+            String hashedPassword = PasswordHandler.hashPassword(userPW, generatedSalt);
+
+            //Save user data along with salted and hashed values into DB
+            registerService.registerUser(userName, generatedSalt, hashedPassword, userEmail, userFirstName, userLastName);
             return "loginPage";
         }
     }

@@ -6,7 +6,6 @@ import com.example.week3day13project.domain.hibernate.Question;
 import com.example.week3day13project.domain.hibernate.QuestionOption;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.criteria.*;
@@ -24,7 +23,6 @@ public class QuestionDAOImpl extends AbstractHibernateDAO<Question> implements Q
     CriteriaQuery<QuestionOption> optionCR;
     Root<QuestionOption> optionRoot;
 
-    @Autowired
     public QuestionDAOImpl() {
         setClazz(Question.class);
     }
@@ -50,6 +48,14 @@ public class QuestionDAOImpl extends AbstractHibernateDAO<Question> implements Q
         questionCR.where(cb.equal(questionRoot.get("quizType"), quizType));
         Query<Question> query = session.createQuery(questionCR);
         return query.getResultList();
+    }
+
+    public Integer getQuizCountByType(Integer quizType){
+        initializeQuestionSession();
+        Query<?> query = session.createQuery(
+                "select count(*) from Question where quizType = :quizType");
+        query.setParameter("quizType", quizType);
+        return (Integer) query.uniqueResult();
     }
 
     @Override

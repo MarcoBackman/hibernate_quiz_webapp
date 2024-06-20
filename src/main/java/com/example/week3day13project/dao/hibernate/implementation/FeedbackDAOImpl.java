@@ -6,7 +6,6 @@ import com.example.week3day13project.domain.hibernate.Feedback;
 import com.example.week3day13project.domain.hibernate.User;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -34,7 +33,6 @@ public class FeedbackDAOImpl extends AbstractHibernateDAO<Feedback> implements F
         feedbackRoot = feedbackCR.from(Feedback.class);
     }
 
-    @Autowired
     public FeedbackDAOImpl() {
         setClazz(Feedback.class);
     }

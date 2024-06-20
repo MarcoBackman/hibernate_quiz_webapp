@@ -25,10 +25,8 @@ public class HomeController {
     public String showHomePage(Model model, HttpServletRequest request) {
         HttpSession currentSession = request.getSession();
         if (currentSession == null) { //Expired or no session
-            System.out.println("No session");
             return "loginPage";
         } else if (currentSession.getAttribute("userObject") == null) {
-            System.out.println("Invalid session");
             return "loginPage";
         }
 

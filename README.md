@@ -3,11 +3,54 @@ Web application app using hibernate framework with criteria functions with MySQL
 
 # Application requirements
 
-Change every functionality from jdbc templates(SQL query) to hibernate (Criteria and HQL) for corresponding with database as an entity object.
+- MySQL Database - [download](https://dev.mysql.com/downloads/file/?id=526927)
+- Java 8
+- JavaSpring boot
+- Maven 
+
+
+## How to setup application
+
+Make sure your mySQL is running before running.
+Set environment variables accordingly like below to connect with your DB.
+```
+DB_NAME={YOUR DB NAME};
+DB_PASS={YOUR PASSWORD};
+DB_URL={YOUR_DB_URL}:{YOUR_DB_PORT};
+DB_USER={YOUR_DB_USER};
+APP_PORT={YOUR_APPLICATION_PART}
+```
+Or edit `src/main/resources/application.properties` directly.
+```application.properties
+database.driver=com.mysql.cj.jdbc.Driver
+database.url=${DB_URL}/${DB_NAME}
+database.username=${DB_USER}
+database.password=${DB_PASS}
+database.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
+database.hibernate.showsql=true
+database.hibernate.hbm2ddl.auto=update
+spring.mvc.view.prefix=/WEB-INF/jsp/
+spring.mvc.view.suffix=.jsp
+server.port=${APP_PORT}
+```
+
+
+if your db requires to be initialized with tables and columns, change following line in `src/main/resources/application.properties`.
+
+```
+database.hibernate.hbm2ddl.auto=create
+```
+
+After running the application, you must set this value to `update` to avoid data wipe.
+
+```
+database.hibernate.hbm2ddl.auto=update
+```
+
 
 # Database Schema
 
-<img src="https://github.com/MarcoBackman/jdbc-quizwebapp/blob/main/img/ER_Diagram.png" width="1100">
+<img src="./img/ER_Diagram.png" width="1100">
 
 # Application website
 <div align="center">

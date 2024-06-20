@@ -1,5 +1,7 @@
 package com.example.week3day13project.config;
 
+import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -7,20 +9,20 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-@EnableTransactionManagement
+@Getter
+@Slf4j
 public class HibernateConfig {
 
-    HibernateProperty hibernateProperty;
+    DBProperty DBProperty;
 
     @Autowired
-    public void setHibernateProperty(HibernateProperty hibernateProperty) {
-        this.hibernateProperty = hibernateProperty;
+    public void setHibernateProperty(DBProperty DBProperty) {
+        this.DBProperty = DBProperty;
     }
 
     @Bean
@@ -35,10 +37,11 @@ public class HibernateConfig {
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(hibernateProperty.getDriver());
-        dataSource.setUrl(hibernateProperty.getUrl());
-        dataSource.setUsername(hibernateProperty.getUsername());
-        dataSource.setPassword(hibernateProperty.getPassword());
+        log.info("Connecting to URL: {}\n USER: {}", DBProperty.getUrl(), DBProperty.getUsername());
+        dataSource.setDriverClassName(DBProperty.getDriver());
+        dataSource.setUrl(DBProperty.getUrl());
+        dataSource.setUsername(DBProperty.getUsername());
+        dataSource.setPassword(DBProperty.getPassword());
         return dataSource;
     }
 
@@ -49,11 +52,12 @@ public class HibernateConfig {
         return transactionManager;
     }
 
-    private final Properties hibernateProperties() {
+    private Properties hibernateProperties() {
+        log.info("Setting hibernate properties");
         Properties hibernateProperties = new Properties();
-        hibernateProperties.setProperty("hibernate.show_sql", hibernateProperty.getShowsql());
-        hibernateProperties.setProperty("hibernate.dialect", hibernateProperty.getDialect());
-        hibernateProperties.setProperty("hibernate.hbm2ddl.auto", hibernateProperty.getHbm2ddl());
+        hibernateProperties.setProperty("hibernate.show_sql", DBProperty.getShowsql());
+        hibernateProperties.setProperty("hibernate.dialect", DBProperty.getDialect());
+        hibernateProperties.setProperty("hibernate.hbm2ddl.auto", DBProperty.getHbm2ddl());
         return hibernateProperties;
     }
 }

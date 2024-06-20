@@ -31,12 +31,14 @@ public class RegisterService {
     @Transactional
     public void registerUser(String userName,
                             String userPW,
+                            String salt,
                             String userEmail,
                             String userFirstName,
                             String userLastName) {
         User user = User.builder()
                 .userName(userName)
                 .userPW(userPW)
+                .salt(salt)
                 .email(userEmail)
                 .firstName(userFirstName)
                 .lastName(userLastName).build();

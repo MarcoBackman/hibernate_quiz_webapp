@@ -6,7 +6,6 @@ import com.example.week3day13project.domain.hibernate.Question;
 import com.example.week3day13project.domain.hibernate.QuestionOption;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -23,7 +22,6 @@ public class QuestionOptionDAOImpl extends AbstractHibernateDAO<QuestionOption> 
     CriteriaQuery<QuestionOption> optionCR;
     Root<QuestionOption> optionRoot;
 
-    @Autowired
     public QuestionOptionDAOImpl() {
         setClazz(QuestionOption.class);
     }

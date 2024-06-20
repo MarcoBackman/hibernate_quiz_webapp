@@ -34,11 +34,9 @@ public class FeedbackController {
             User user = (User)currentSession.getAttribute("userObject");
             //String userID = String.valueOf(user.getUserId());
             //check if user has already given a feedback
-            System.out.println("Feedback requested for id: " + user.getUserId());
             if (feedbackService.allowedToFeedback(user.getUserId())) {
                 return "feedbackPage";
             } else { //if not, redirect to the page
-                System.out.println("User has already rated");
                 return "mainPage";
             }
         }

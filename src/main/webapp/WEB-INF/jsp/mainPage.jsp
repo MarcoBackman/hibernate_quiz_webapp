@@ -18,11 +18,11 @@
     <div id="quiz_wrapper">
         <c:forEach items="${quiz_types}" var="quiz_type" varStatus="loop">
             <div class="quiz_link">
-                <form class="quiz_request_form" method="get" action="takeQuiz">
+                <form:input class="quiz_request_form" method="get" action="takeQuiz">
                     <label style="visibility: hidden">
                         <input type="text" name="quiz_type" value="${quiz_type.quizTypeNumber}" style="visibility: hidden">
                     </label>
-                    <a class="link" href="/take-quiz/${quiz_type.quizTypeNumber}" type="submit">
+                    <a class="link" href="/quiz-ready/${quiz_type.quizTypeNumber}" type="submit">
                         <div class="quiz_type_block">
                             <h1 class="quiz_type_name">
                                     ${quiz_type.quizDescription}
@@ -30,7 +30,7 @@
                             <p>Press to take a quiz</p>
                         </div>
                     </a>
-                </form>
+                </form:input>
             </div>
         </c:forEach>
     </div>

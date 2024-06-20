@@ -5,7 +5,6 @@ import com.example.week3day13project.dao.hibernate.QuizTypeDAO;
 import com.example.week3day13project.domain.hibernate.QuizType;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -22,7 +21,6 @@ public class QuizTypeDAOImpl extends AbstractHibernateDAO<QuizType> implements Q
     CriteriaQuery<QuizType> quizTypeCR;
     Root<QuizType> quizTypeRoot;
 
-    @Autowired
     public QuizTypeDAOImpl() {
         setClazz(QuizType.class);
     }

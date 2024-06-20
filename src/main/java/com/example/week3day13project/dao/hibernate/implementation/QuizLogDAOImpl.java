@@ -2,11 +2,9 @@ package com.example.week3day13project.dao.hibernate.implementation;
 
 import com.example.week3day13project.dao.hibernate.AbstractHibernateDAO;
 import com.example.week3day13project.dao.hibernate.QuizLogDAO;
-import com.example.week3day13project.domain.hibernate.Quiz;
 import com.example.week3day13project.domain.hibernate.QuizLog;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -22,7 +20,6 @@ public class QuizLogDAOImpl extends AbstractHibernateDAO<QuizLog> implements Qui
     CriteriaQuery<QuizLog> quizLogCR;
     Root<QuizLog> quizLogRoot;
 
-    @Autowired
     public QuizLogDAOImpl() {
         setClazz(QuizLog.class);
     }
