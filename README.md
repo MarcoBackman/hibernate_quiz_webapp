@@ -34,7 +34,6 @@ spring.mvc.view.suffix=.jsp
 server.port=${APP_PORT}
 ```
 
-
 if your db requires to be initialized with tables and columns, change following line in `src/main/resources/application.properties`.
 
 ```
@@ -47,6 +46,9 @@ After running the application, you must set this value to `update` to avoid data
 database.hibernate.hbm2ddl.auto=update
 ```
 
+Run application with following command
+
+`java -Dserver.port=$APP_PORT -jar QuizApp.jar`
 
 # Database Schema
 
