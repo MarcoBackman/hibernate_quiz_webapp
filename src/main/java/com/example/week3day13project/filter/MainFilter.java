@@ -1,6 +1,5 @@
 package com.example.week3day13project.filter;
 
-import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -13,25 +12,29 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@Component
 @WebFilter(urlPatterns = "/*")
 public class MainFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain filterChain)
-            throws IOException {
+            throws IOException, ServletException {
 
+        // get session if it exists, do not create
         HttpSession session = request.getSession(false);
+        String requestURI = request.getRequestURI();
 
         //when user session is valid
-        if (session != null && session.getAttribute("userObject") != null) {
+        if ((session == null
+                || session.getAttribute("userObject") == null)
+                && !requestURI.equals("/login")) {
             //add when valid user enters wrong address
             response.sendRedirect("/home");
-        } else {
             System.out.println("Invalid user session");
             // redirect back to the login page if user is not logged in
             response.sendRedirect("/login");
+        } else {
+            filterChain.doFilter(request, response);
         }
     }
 

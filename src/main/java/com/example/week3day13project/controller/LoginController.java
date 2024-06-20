@@ -4,10 +4,7 @@ import com.example.week3day13project.domain.hibernate.User;
 import com.example.week3day13project.service.LoginService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -21,7 +18,7 @@ public class LoginController {
         this.loginService = loginService;
     }
 
-    @RequestMapping(value = "/login")
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String showLoginPage(Model model) {
         return "loginPage";
     }
@@ -29,7 +26,8 @@ public class LoginController {
     @PostMapping("/login")
     public String postLogin(@RequestParam("user_id") String username,
                             @RequestParam("password") String password,
-                            HttpServletRequest request) {
+                            HttpServletRequest request,
+                            Model model) {
 
         User possibleUser = loginService.validateLogin(username, password);
 
@@ -50,9 +48,10 @@ public class LoginController {
 
             // store user object in session
             newSession.setAttribute("userObject", possibleUser);
-
+            System.out.println("Session set");
             return "redirect:home";
         } else {
+            model.addAttribute("loginError", "Invalid username or password.");
             return "loginPage";
         }
     }

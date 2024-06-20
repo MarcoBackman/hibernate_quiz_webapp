@@ -23,13 +23,11 @@ public class HomeController {
 
     @GetMapping(value = "/home")
     public String showHomePage(Model model, HttpServletRequest request) {
-        HttpSession currentSession = request.getSession();
-        if (currentSession == null) { //Expired or no session
-            return "loginPage";
-        } else if (currentSession.getAttribute("userObject") == null) {
+        HttpSession currentSession = request.getSession(true);
+        if (currentSession.getAttribute("userObject") == null) {
+            System.out.println("userObject is null");
             return "loginPage";
         }
-
         User user = (User)currentSession.getAttribute("userObject");
 
         //Get quiz types
@@ -40,7 +38,7 @@ public class HomeController {
 
         model.addAttribute("user", user);
         model.addAttribute("quiz_types", quizTypeList);
-
+        System.out.println("User session set.");
         return "mainPage";
     }
 }
