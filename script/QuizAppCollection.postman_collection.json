@@ -1,0 +1,307 @@
+{
+	"info": {
+		"_postman_id": "a36e2b87-76c3-40e6-b224-bf41cd3e7fbe",
+		"name": "QuizAppCollection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "21643228"
+	},
+	"item": [
+		{
+			"name": "View login page",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8081/login"
+			},
+			"response": []
+		},
+		{
+			"name": "View home",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8081/"
+			},
+			"response": []
+		},
+		{
+			"name": "User Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/login?user_id=test&password=test",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"login"
+					],
+					"query": [
+						{
+							"key": "user_id",
+							"value": "test"
+						},
+						{
+							"key": "password",
+							"value": "test"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Log out",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8081/logout"
+			},
+			"response": []
+		},
+		{
+			"name": "User Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/register?user_id={{user_id}}&password={{password}}&first_name=Test&last_name=User&email=test@email.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"register"
+					],
+					"query": [
+						{
+							"key": "user_id",
+							"value": "{{user_id}}"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}"
+						},
+						{
+							"key": "first_name",
+							"value": "Test"
+						},
+						{
+							"key": "last_name",
+							"value": "User"
+						},
+						{
+							"key": "email",
+							"value": "test@email.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View register page",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8081/register"
+			},
+			"response": []
+		},
+		{
+			"name": "Get home page - redirect to login on session expiration",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8081/home"
+			},
+			"response": []
+		},
+		{
+			"name": "View admin page",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8081/admin-page"
+			},
+			"response": []
+		},
+		{
+			"name": "Get admin page log",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8081/admin-page/log-detail/{{quiz_id}}"
+			},
+			"response": []
+		},
+		{
+			"name": "Get admin page category lookup",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/admin-page/by-category?filterByQuizType=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"admin-page",
+						"by-category"
+					],
+					"query": [
+						{
+							"key": "filterByQuizType",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get admin page user lookup",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/admin-page/by-user?user_id=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"admin-page",
+						"by-user"
+					],
+					"query": [
+						{
+							"key": "user_id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View feedback page",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8081/feedback"
+			},
+			"response": []
+		},
+		{
+			"name": "Give feedback",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/feedback?rating=5&feedback=\"Nice quiz app",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"feedback"
+					],
+					"query": [
+						{
+							"key": "rating",
+							"value": "5"
+						},
+						{
+							"key": "feedback",
+							"value": "\"Nice quiz app"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View contact us page",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8081/contact-us"
+			},
+			"response": []
+		},
+		{
+			"name": "View user profile",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/user-profile?user_info=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"user-profile"
+					],
+					"query": [
+						{
+							"key": "user_info",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Activate user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": "http://localhost:8081/activate_user"
+			},
+			"response": []
+		},
+		{
+			"name": "Suspend user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": "http://localhost:8081/suspend_user"
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "quiz_id",
+			"value": "1"
+		},
+		{
+			"key": "user_id",
+			"value": "admin"
+		},
+		{
+			"key": "user_pass",
+			"value": "admin"
+		},
+		{
+			"key": "test_user_id",
+			"value": "test"
+		},
+		{
+			"key": "password",
+			"value": "test"
+		}
+	]
+}

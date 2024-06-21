@@ -50,11 +50,14 @@ Run application with following command
 
 `nohup java -Dserver.port=$APP_PORT -jar QuizApp.war &`
 
-# Database Schema
+## Postman collection
+Postman collection set can be found at `script/QuizAppCollection.postman_collection.json`
+
+## Database Schema
 
 <img src="./img/ER_Diagram.png" width="1100">
 
-# Application website
+## Application website
 <div align="center">
   <img src="/img/1_login.PNG" width="700">
   <img src="/img/2_register.PNG" width="700">
