@@ -11,7 +11,7 @@
     <groupId>com.example</groupId>
     <artifactId>Week3Day13Project</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
     <name>Week3Day13Project</name>
     <description>Week3Day13Project</description>
     <properties>

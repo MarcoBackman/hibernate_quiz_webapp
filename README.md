@@ -48,7 +48,7 @@ database.hibernate.hbm2ddl.auto=update
 
 Run application with following command
 
-`nohup java -Dserver.port=$APP_PORT -jar QuizApp.jar &`
+`nohup java -Dserver.port=$APP_PORT -jar QuizApp.war &`
 
 # Database Schema
 
