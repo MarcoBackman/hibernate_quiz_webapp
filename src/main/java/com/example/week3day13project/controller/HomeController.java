@@ -3,6 +3,7 @@ package com.example.week3day13project.controller;
 import com.example.week3day13project.domain.hibernate.QuizType;
 import com.example.week3day13project.domain.hibernate.User;
 import com.example.week3day13project.service.QuizService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+@Slf4j
 public class HomeController {
 
     private final QuizService quizService;
@@ -32,7 +34,7 @@ public class HomeController {
     public String showHomePage(Model model, HttpServletRequest request) {
         HttpSession currentSession = request.getSession(true);
         if (currentSession.getAttribute("userObject") == null) {
-            System.out.println("userObject is null");
+            log.info("userObject is null for current session. Need to login again.");
             return "loginPage";
         }
         User user = (User)currentSession.getAttribute("userObject");
@@ -45,7 +47,7 @@ public class HomeController {
 
         model.addAttribute("user", user);
         model.addAttribute("quiz_types", quizTypeList);
-        System.out.println("User session set.");
+        log.debug("User {} session set.", user);
         return "mainPage";
     }
 }
