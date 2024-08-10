@@ -46,7 +46,7 @@ public class QuestionOptionDAOImpl extends AbstractHibernateDAO<QuestionOption> 
     public QuestionOption findByID(Integer optionID) {
         initializeOptionSession();
         optionCR.select(optionRoot);
-        optionCR.where(cb.equal(optionRoot.get("optionID"), optionID));
+        optionCR.where(cb.equal(optionRoot.get("option_id"), optionID));
         Query<QuestionOption> query = session.createQuery(optionCR);
         session.flush();
         session.clear();
@@ -78,22 +78,4 @@ public class QuestionOptionDAOImpl extends AbstractHibernateDAO<QuestionOption> 
         session.save(option);
     }
 
-    @Override
-    public void deleteAllOptions(Integer questionID) {
-        initializeOptionSession();
-        optionCR.select(optionRoot);
-        optionCR.where(cb.equal(optionRoot.get("questionID"), questionID));
-        Query<QuestionOption> query = session.createQuery(optionCR);
-        List<QuestionOption> options = query.getResultList();
-        options.forEach(option -> session.delete(option));
-    }
-
-    @Override
-    public List<QuestionOption> getOptionsByQuestionID(Integer questionID) {
-        initializeOptionSession();
-        optionCR.select(optionRoot);
-        optionCR.where(cb.equal(optionRoot.get("questionID"), questionID));
-        Query<QuestionOption> query = session.createQuery(optionCR);
-        return query.getResultList();
-    }
 }

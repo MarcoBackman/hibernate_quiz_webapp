@@ -121,14 +121,4 @@ public class QuestionService {
         return hibernateQuestionDAO.findById(questionID);
     }
 
-    @Transactional
-    public List<QuestionOption> getQuestionOptionsByQuestionID(Integer questionID) {
-        return hibernateQuestionOptionDAO.getOptionsByQuestionID(questionID);
-    }
-
-    @Transactional
-    public int getAvailableQuizAmount(Integer quizType) {
-        return hibernateQuestionDAO.getQuizCountByType(quizType);
-    }
-
 }

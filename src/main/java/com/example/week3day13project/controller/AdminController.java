@@ -136,10 +136,7 @@ public class AdminController {
         for (UserQuestion userQuestion : userQuestions) {
 
             Question tempQuestion = questionService.getQuestionByQuestionID(userQuestion.getQuestionID());
-
-            List<QuestionOption> tempOptions
-                    = questionService.getQuestionOptionsByQuestionID(tempQuestion.getQuestionID());
-
+            List<QuestionOption> tempOptions  = tempQuestion.getOptions();
             userQuestionsByQuestion.put(tempQuestion, userQuestion);
             optionSetByQuestion.put(tempQuestion, tempOptions);
         }

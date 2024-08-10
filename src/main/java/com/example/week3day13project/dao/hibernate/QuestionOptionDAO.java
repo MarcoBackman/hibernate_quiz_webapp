@@ -10,6 +10,4 @@ public interface QuestionOptionDAO {
     QuestionOption findByID(Integer optionID);
     Map<Integer, List<QuestionOption>> findAllAndGroupByQuestionID();
     void addOption(QuestionOption option);
-    void deleteAllOptions(Integer questionID);
-    List<QuestionOption> getOptionsByQuestionID(Integer questionID);
 }
