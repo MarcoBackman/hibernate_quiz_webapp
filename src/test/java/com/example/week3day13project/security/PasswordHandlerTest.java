@@ -8,8 +8,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(MockitoExtension.class)
 public class PasswordHandlerTest {
-
-    private String userPassword;
     private final int SALT_LENGTH = 20;
 
     @Test
@@ -37,5 +35,25 @@ public class PasswordHandlerTest {
         assertThat(hashedValue).isNotEqualTo(userInputValue);
         assertThat(hashedValue).isNotEqualTo(testSaltValue);
         assertThat(hashedValue).isEqualTo(PasswordHandler.hashPassword("test", testSaltValue));
+    }
+
+    @Test
+    public void sameStringResultsSameSaltedValueTest_2() {
+        String storedSalt = "testSalt";
+        String hashedUserPassword = PasswordHandler.hashPassword("testPassword", storedSalt);
+
+        String userInput = "testPassword";
+        boolean result = PasswordHandler.isValidUserPassword(userInput, hashedUserPassword, storedSalt);
+        assertThat(result).isTrue();
+    }
+
+    @Test
+    public void getHashValueTest_2() {
+        String testSaltValue = "qha3KivAGci0IiXJGPjxK/jWjxDdLCfRpQyHlZq1nhA=";
+        String userInputValue = "1234";
+        String hashedValue = PasswordHandler.hashPassword(userInputValue, testSaltValue);
+        assertThat(hashedValue).isNotEqualTo(userInputValue);
+        assertThat(hashedValue).isNotEqualTo(testSaltValue);
+        assertThat(hashedValue).isEqualTo("Zf6NusOBGsj+dAhajOKCG/Wmxpw6WWScFYI1sUwoSs4=");
     }
 }

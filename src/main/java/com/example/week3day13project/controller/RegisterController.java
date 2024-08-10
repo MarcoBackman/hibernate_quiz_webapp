@@ -44,10 +44,10 @@ public class RegisterController {
 
             String generatedSalt = PasswordHandler.getSalt(SALT_LENGTH);
             //Hash password with salt value
-            String hashedPassword = PasswordHandler.hashPassword(userPW, generatedSalt);
+            String hashedPassword = PasswordHandler.hashPassword(userPW.trim(), generatedSalt);
 
             //Save user data along with salted and hashed values into DB
-            registerService.registerUser(userName, generatedSalt, hashedPassword, userEmail, userFirstName, userLastName);
+            registerService.registerUser(userName, hashedPassword, generatedSalt, userEmail, userFirstName, userLastName);
             return "loginPage";
         }
     }

@@ -1,5 +1,7 @@
 package com.example.week3day13project.security;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
@@ -13,6 +15,8 @@ import java.util.Random;
  * After salting and hashing a user password during the registration,
  * we must also store the salt along with the hashed password in the database.
  */
+
+@Slf4j
 public class PasswordHandler {
 
     private static final Random RANDOM = new SecureRandom();
@@ -39,7 +43,7 @@ public class PasswordHandler {
             return Base64.getEncoder().encodeToString(securePassword);
 
         } catch (NoSuchAlgorithmException | InvalidKeySpecException ex) {
-            System.err.println("Exception encountered in hashPassword()");
+            log.error("Exception encountered in hashPassword()", ex);
             return null;
 
         } finally {
@@ -50,10 +54,11 @@ public class PasswordHandler {
     public static boolean isValidUserPassword(String userInputPassword, String storedHashedPassword, String storedSalt) {
         String hashedUserInputPassword = hashPassword(userInputPassword, storedSalt);
         if (hashedUserInputPassword == null || hashedUserInputPassword.isEmpty()) {
-            System.out.println(hashedUserInputPassword);
-            System.out.println(storedHashedPassword);
+            log.warn("hash calculation returned empty value");
             return false;
         }
+        //log.debug("Stored password={}, hashedPassword={}", storedHashedPassword, hashedUserInputPassword);
+        //log.debug(hashedUserInputPassword);
         return hashedUserInputPassword.equals(storedHashedPassword);
     }
 }
