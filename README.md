@@ -14,6 +14,7 @@ Web application app using hibernate framework with criteria functions with MySQL
 Make sure your mySQL is running before running.
 Set environment variables accordingly like below to connect with your DB.
 ```
+APP_PORT={YOUR_APP_PORT};
 DB_NAME={YOUR DB NAME};
 DB_PASS={YOUR PASSWORD};
 DB_URL={YOUR_DB_URL}:{YOUR_DB_PORT};
