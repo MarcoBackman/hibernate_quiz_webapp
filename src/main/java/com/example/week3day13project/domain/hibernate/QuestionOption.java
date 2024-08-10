@@ -25,6 +25,7 @@ public class QuestionOption implements Serializable {
     @Column(name = "is_answer")
     private boolean answer;
 
-    @Column(name = "question_id")
-    private int questionID;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "question_id", nullable = false)
+    private Question question;
 }

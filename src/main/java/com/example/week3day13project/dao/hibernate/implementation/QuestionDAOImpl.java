@@ -20,8 +20,6 @@ public class QuestionDAOImpl extends AbstractHibernateDAO<Question> implements Q
     CriteriaBuilder cb;
     CriteriaQuery<Question> questionCR;
     Root<Question> questionRoot;
-    CriteriaQuery<QuestionOption> optionCR;
-    Root<QuestionOption> optionRoot;
 
     public QuestionDAOImpl() {
         setClazz(Question.class);
@@ -177,42 +175,16 @@ public class QuestionDAOImpl extends AbstractHibernateDAO<Question> implements Q
     @Override
     public LinkedHashMap<Question, List<QuestionOption>> getTenMultipleQuestionsByQuizType(Integer typeIndex) {
         initializeQuestionSession();
-        questionCR.select(questionRoot);
-        Predicate quizTypeMatch
-                = cb.equal(questionRoot.get("quizType"), typeIndex);
-
-        Predicate noShortQuestion
-                = cb.equal(questionRoot.get("shortQuestion"), false);
-
-        Predicate active
-                = cb.equal(questionRoot.get("active"), true);
-
-        Predicate firstPredicate
-                = cb.and(quizTypeMatch, noShortQuestion);
-
-        Predicate finalPredicate
-                = cb.and(firstPredicate, active);
-
-        questionCR.where(finalPredicate);
-
-
-        Query<Question> query = session.createQuery(questionCR);
-        List<Question> questions = query.getResultList();
-
-        Collections.shuffle(questions);
-        List<Question> selectedQuestions = questions.stream().limit(10).collect(Collectors.toList());
-
         LinkedHashMap<Question, List<QuestionOption>> questionSet = new LinkedHashMap<>();
+        Query<Question> query = session.createNativeQuery(
+                "SELECT * FROM Question WHERE quiz_type = :typeIndex AND is_short_question = FALSE AND is_active = TRUE ORDER BY RAND() LIMIT 10",
+                Question.class);
+        query.setParameter("typeIndex", typeIndex);
 
-        for (Question question : selectedQuestions) {
-            optionCR = cb.createQuery(QuestionOption.class);
-            optionRoot = optionCR.from(QuestionOption.class);
-            optionCR.select(optionRoot);
-            optionCR.where(cb.equal(optionRoot.get("questionID"), question.getQuestionID()));
-            Query<QuestionOption> optionQuery = session.createQuery(optionCR);
-            List<QuestionOption> options = optionQuery.getResultList();
-            questionSet.put(question, options);
-        }
+        List<Question> questions = query.getResultList();
+        questions.forEach(question -> {
+            questionSet.put(question, question.getOptions());
+        });
         return questionSet;
     }
 

@@ -5,6 +5,8 @@ import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="Question")
@@ -36,4 +38,7 @@ public class Question implements Serializable {
 
     @Column(name = "quiz_type")
     private int quizType;
+
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<QuestionOption> options = new ArrayList<>();
 }

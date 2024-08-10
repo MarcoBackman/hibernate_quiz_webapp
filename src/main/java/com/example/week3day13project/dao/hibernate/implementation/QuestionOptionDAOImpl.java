@@ -67,11 +67,7 @@ public class QuestionOptionDAOImpl extends AbstractHibernateDAO<QuestionOption> 
         Map<Integer, List<QuestionOption>> group = new HashMap<>();
 
         for (Question question: questions) {
-            optionCR.select(optionRoot);
-            optionCR.where(cb.equal(optionRoot.get("questionID"), question.getQuestionID()));
-            Query<QuestionOption> inner_query = session.createQuery(optionCR);
-            List<QuestionOption> options = inner_query.getResultList();
-            group.put(question.getQuestionID(), options);
+            group.put(question.getQuestionID(), question.getOptions());
         }
         return group;
     }

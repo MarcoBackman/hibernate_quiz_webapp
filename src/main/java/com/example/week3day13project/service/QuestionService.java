@@ -51,14 +51,12 @@ public class QuestionService {
                 .quizType(quizType)
                 .shortQuestion(false).build();
 
-        int questionIndex = hibernateQuestionDAO.addQuestion(question);
-
         //Map options to question index on creation
         for (QuestionOption option : options) {
             QuestionOption tempOption = QuestionOption.builder()
                     .optionContent(option.getOptionContent())
-                    .answer((option.isAnswer() ? true : false))
-                    .questionID(questionIndex).build();
+                    .answer((option.isAnswer()))
+                    .question(question).build();
             hibernateQuestionOptionDAO.addOption(tempOption);
         }
     }
@@ -88,7 +86,6 @@ public class QuestionService {
     public void deleteMultipleQuestion(Integer questionID) {
         //delete question
         hibernateQuestionDAO.deleteQuestion(questionID);
-        hibernateQuestionOptionDAO.deleteAllOptions(questionID);
     }
 
     @Transactional
